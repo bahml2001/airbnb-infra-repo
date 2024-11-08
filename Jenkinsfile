@@ -51,7 +51,7 @@ pipeline {
 
         stage('Terraform Apply/Destroy') {
             steps {
-                sh 'terraform ${action} --auto-approve'
+                sh 'terraform ${params.action} --auto-approve'
             }
         } 
        
