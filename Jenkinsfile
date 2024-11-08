@@ -15,6 +15,10 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
     }
 
+    parameters {
+    choice(name: 'action', choices: ['apply', 'destroy'], description: 'Choose Terraform action')
+    }
+
     stages {
         stage('Git Checkout') {
             steps {
