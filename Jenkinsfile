@@ -15,9 +15,9 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
     }
 
-    parameters {
-    choice(name: 'action', choices: ['apply', 'destroy'], description: 'Choose Terraform action')
-    }
+    // parameters { 
+    // choice(name: 'action', choices: ['apply', 'destroy'], description: 'Choose Terraform action')
+    // }
 
     stages {
         stage('Git Checkout') {
@@ -51,7 +51,7 @@ pipeline {
 
         stage('Terraform Apply/Destroy') {
             steps {
-                sh 'terraform ${params.action} --auto-approve'
+                sh 'terraform ${action} --auto-approve'
             }
         } 
        
@@ -60,7 +60,7 @@ pipeline {
     post { 
         always { 
             echo 'I will always say Hello again!'
-            slackSend channel: '#jjtech-champions-devops-team', color: COLOR_MAP[currentBuild.currentResult], message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL} Testing testing 123"
+            slackSend channel: '#jjtech-champions-devops-team', color: COLOR_MAP[currentBuild.currentResult], message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL} testing testing 123"
         }
     }    
 }
